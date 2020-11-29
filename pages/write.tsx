@@ -74,7 +74,7 @@ export default function Write() {
   return (
     <div style={{ display: 'flex', flexFlow: 'column', height: '100vh' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <input value={text} onChange={onChange} onKeyPress={onKeyPress} style={{ fontSize: 40, fontWeight: 800, width: '100%', outline: 'none', margin: 10 }} />
+        <input value={text} onChange={onChange} onKeyPress={onKeyPress} style={{ width: '100%', outline: 'none', margin: 10 }} />
         <Author name={currentAuthor?.name} image={currentAuthor?.image} size={50} hideName onClick={onAuthorClick} />
       </div>
       <Messages />
