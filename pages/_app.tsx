@@ -1,7 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, split } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
-import Head from 'next/head'
 import { useMemo } from 'react';
 import '../styles/globals.css'
 
@@ -21,7 +20,7 @@ function createClient() {
   }
 
   const wsLink = new WebSocketLink({
-    uri: `ws://subtitles.hasura.app/v1/graphql`,
+    uri: `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://subtitles.hasura.app/v1/graphql`,
     options: {
       reconnect: true
     }
