@@ -3,6 +3,7 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { useMemo } from 'react';
 import '../styles/globals.css'
+import Head from 'next/head'
 
 function createClient() {
   const ssr = typeof window === 'undefined'
@@ -50,9 +51,14 @@ function createClient() {
 function App({ Component, pageProps }) {
   const client = useMemo(createClient, [typeof window === 'undefined'])
   return (
-    <ApolloProvider client={client}>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+      </Head>
+      <ApolloProvider client={client}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </>
   )
 }
 
