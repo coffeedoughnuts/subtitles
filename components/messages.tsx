@@ -1,6 +1,6 @@
 import { gql, TypedDocumentNode, useSubscription } from "@apollo/client";
 import { CSSProperties, FC } from "react";
-import { Messages as Subscription } from "../types/Messages";
+import { Messages as Subscription, Messages_recent } from "../types/Messages";
 import { Author } from "./author";
 
 const subscription: TypedDocumentNode<Subscription> = gql`
@@ -26,9 +26,22 @@ const messageTextStyle: CSSProperties = {
   fontWeight: 800
 }
 
-export const Messages: FC = () => {
+interface Props {
+  writeMode?: boolean;
+}
+
+export const Messages: FC<Props> = (props) => {
+  const { writeMode } = props;
   const { data, loading } = useSubscription(subscription)
   const noMessages = !loading && ((data?.recent ?? []).length === 0)
+  const refreshMessage = data?.recent?.find((message) => message.text === '#refresh')
+  if (!writeMode && refreshMessage) {
+    const lastRefreshMessageId = window.localStorage.getItem('last refresh message id')
+    if (lastRefreshMessageId !== refreshMessage.id.toString()) {
+      window.localStorage.setItem('last refresh message id', refreshMessage.id.toString())
+      window.location.reload()
+    }
+  }
   return (
     <div style={{ overflow: 'auto', flexGrow: 1, marginTop: 100 }}>
         {data?.recent?.map((message, i) => (

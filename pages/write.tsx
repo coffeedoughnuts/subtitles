@@ -77,7 +77,7 @@ export default function Write() {
         <input value={text} onChange={onChange} onKeyPress={onKeyPress} style={{ width: '100%', outline: 'none', margin: 10 }} />
         <Author name={currentAuthor?.name} image={currentAuthor?.image} size={50} hideName onClick={onAuthorClick} />
       </div>
-      <Messages />
+      <Messages writeMode />
     </div>
   )
 
