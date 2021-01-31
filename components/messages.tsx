@@ -30,7 +30,7 @@ export const Messages: FC = () => {
   const { data, loading } = useSubscription(subscription)
   const noMessages = !loading && ((data?.recent ?? []).length === 0)
   return (
-    <div style={{ overflow: 'auto', flexGrow: 1 }}>
+    <div style={{ overflow: 'auto', flexGrow: 1, marginTop: 100 }}>
         {data?.recent?.map((message, i) => (
           <div key={message.id} style={{ ...messageStyle, opacity: i === 0 ? 1 : 0.3}}>
             <Author name={message.author.name} image={message.author.image} size={50} hideName />
